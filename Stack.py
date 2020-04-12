@@ -39,6 +39,19 @@ class Stack:
         #    topData = topData.get_next()
         #    topData.set_next(topData.get_next())
             
+    def get_at(self,index):
+        topData = self.top
+        if index == 0 :
+            return topData
+        elif index < self.size:
+            for i in range(0,index):
+                topData = topData.get_next()
+            return topData
+                
+                
+            
+            
+        
     def print_stack(self):
         print(">> current stack")
         node = self.top
@@ -53,6 +66,12 @@ stack.push("Kiwi")
 stack.push("Banana")
 stack.print_stack()
 
+node = stack.get_at(0)
+if node != None:
+    print(node.get_data())
+else:
+    print("index error")
+print(">>>>>>>>>>>>")
 while True:
     node = stack.pop()
     if node is None:
