@@ -28,8 +28,7 @@ class singly_linked_list:
         self.header = None
         self.tail = None
         self.size = 0
-        self.prev = None
-        self.nextData = None
+
 
     def append(self,data):
         self.size += 1
@@ -64,35 +63,38 @@ class singly_linked_list:
         return node
     
     def delete_at(self,index):
-        prevNode = self.prev
+        prev = self.header
+        next_data = None
         node = self.header
-        if node == None:
-            print("we can't find the data")
-            
+        if index + 1 > self.size:
+            print("index error")
         elif index == 0:
-            if self.tail.get_next() == None:
-                node = None
-                
-            elif self.size == 1:
-                node = None
-                self.size -= 1
-                
-            else:
-                node = node.set_next(node.get_next())
-                self.size -= 1
-            
-            
-        else:
-            for i in range (0,index):
-                if i == index - 1:
-                    prevNode = node
-                elif i == self.size -1:
-                    break
-                node = node.get_next()
-                i += 1
-            node = node.get_next()
-            prevNode.set_next(node)
+            self.header = node.get_next()
             self.size -= 1
+        else:
+            for i in range (index - 1):
+                node = node.get_next()
+                prev = node
+            node = self.header
+            for i in range (index + 1):
+                node = node.get_next()
+                next_data = node
+            prev.set_next(next_data)
+            
+            node = self.header
+            while node.get_next() != None:
+                node = self.header.get_next()
+            self.tail = node
+                
+            
+                
+     
+
+                
+                
+            
+            
+        
             
                 
                 
@@ -119,14 +121,14 @@ sll.append("USA")
 sll.print_list()
 
 print("-----------")
-sll.delete_at(0)
+sll.delete_at(2)
 sll.print_list()
 print("-----------")
 sll.append("airpods")
 sll.print_list()
 print("-----------")
 
-node = sll.get_at(1)
+node = sll.get_at(0)
 if node != None:
     print(node.get_data())
 else:
