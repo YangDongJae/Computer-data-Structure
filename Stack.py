@@ -29,11 +29,15 @@ class Stack:
     
     def pop(self):
         topData = self.top
-        if topData == None:
-            return None
-        else:
-            topData = topData.get_next()
-            topData.set_next(topData.get_next())
+        if topData != None:
+            self.top = topData.get_next()
+            #topData = topData.get_next()
+            self.size -= 1
+        return topData
+        
+       # else:
+        #    topData = topData.get_next()
+        #    topData.set_next(topData.get_next())
             
     def print_stack(self):
         print(">> current stack")
@@ -51,8 +55,10 @@ stack.print_stack()
 
 while True:
     node = stack.pop()
-    if node == None:
+    if node is None:
         break
     else:
         print("Pop : " + node.get_data())
+        if node == None:
+            break
 stack.print_stack()
