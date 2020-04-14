@@ -16,14 +16,14 @@ class Node:
     def set_prev(self,prev):
         self.prev = prev
         
-    def set_next(self, next):
-        self.next = next
+    def set_next(self, nextData):
+        self.next = nextData
         
     def get_data(self):
         return self.data
     
     def get_prev(self):
-        return self.data
+        return self.prev
     
     def get_next(self):
         return self.next
@@ -38,13 +38,14 @@ class Doubly_linked_list:
     def print_list(self):
         header = self.header
         print(">>>Current List")
-        while header == None:
+        while header != None:
             print(header.get_data())
             header = header.get_next()
         print(">>>>>>>>>>>>>>>>")
         
     def append(self,data):
         new_node = Node(data)
+        header = self.header
         self.size += 1
         if self.header == None:
             self.header = new_node
@@ -52,16 +53,7 @@ class Doubly_linked_list:
             self.tail.set_next(new_node)
             new_node.set_prev(self.tail)
         self.tail = new_node
-
-    def append(self,data):
-        self.size += 1
-        new_node = Node(data)
-        if self.header == None:
-            self.header = new_node
-        else:
-            self.tail.set_next(new_node)
-        self.tail = new_node        
-        
+         
     def get_at(self,index):
         header = self.header
         for i in range (index):
@@ -69,16 +61,52 @@ class Doubly_linked_list:
         return header.get_next()
     
     def search(self,data):
-        self.header = header
-        for i in range (size - 1):
-            header = self.get_next()
-        return header
+        node = self.header
+        for i in range(self.size):
+            if node.get_data() == data:
+                return node
+            node = self.header.get_next()
+        return node
+    
+    def get_near_by(self,data,scope):
+        list = [] 
+        header= self.header
+        prev = None
+        nextData = None
+        while header.get_data() == data:
+            header = self.header.get_next()
+            if header.get_data() == data:
+                prev = header.get_prev()
+                nextData = header.get_next()
+                for i in range (scope):
+                    list.append(prev.get_data())
+                    prev = prev.get_prev()
+                for i in range(scope):
+                    list.append(nextData.get_datat())
+                    nextData = nexData.get_next()
+        return list
+                
+        
+        
+        
+        
+        return list
+                
+    
+
+            
+            
+        
 
 dll = Doubly_linked_list()
 dll.append("Apple")
 dll.append("Kiwi")
-dll.append("Banana")         
-dll.print_list()   
+dll.append("Banana") 
+dll.append("Melon")
+dll.append("Oranged")
+dll.append("Blackberry")   
+list = dll.get_near_by("Banana" , 2)
+print(list)
             
         
         
