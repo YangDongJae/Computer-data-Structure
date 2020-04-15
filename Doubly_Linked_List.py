@@ -73,24 +73,23 @@ class Doubly_linked_list:
         header= self.header
         prev = None
         nextData = None
-        while header.get_data() == data:
-            header = self.header.get_next()
+        while header.get_data() != data:
+            header = header.get_next()
             if header.get_data() == data:
                 prev = header.get_prev()
                 nextData = header.get_next()
                 for i in range (scope):
+                    if prev == None:
+                        break
                     list.append(prev.get_data())
                     prev = prev.get_prev()
                 for i in range(scope):
-                    list.append(nextData.get_datat())
-                    nextData = nexData.get_next()
+                    if nextData == None:
+                        break
+                    list.append(nextData.get_data())
+                    nextData = nextData.get_next()
         return list
-                
-        
-        
-        
-        
-        return list
+
                 
     
 
@@ -105,7 +104,7 @@ dll.append("Banana")
 dll.append("Melon")
 dll.append("Oranged")
 dll.append("Blackberry")   
-list = dll.get_near_by("Banana" , 2)
+list = dll.get_near_by("Banana" , 3)
 print(list)
             
         
