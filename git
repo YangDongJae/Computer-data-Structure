@@ -1,0 +1,30 @@
+(base) Sanchezs-MacBook-Pro:github yangdongjae$ git add .
+warning: 내장 깃 저장소 추가: Computer-data-Structure
+힌트: You've added another git repository inside your current repository.
+힌트: Clones of the outer repository will not contain the contents of
+힌트: the embedded repository and will not know how to obtain it.
+힌트: If you meant to add a submodule, use:
+힌트: 
+힌트: 	git submodule add <url> Computer-data-Structure
+힌트: 
+힌트: If you added this path by mistake, you can remove it from the
+힌트: index with:
+힌트: 
+힌트: 	git rm --cached Computer-data-Structure
+힌트: 
+힌트: See "git help submodule" for more information.
+(base) Sanchezs-MacBook-Pro:github yangdongjae$ git status
+현재 브랜치 master
+브랜치가 'origin/master'에 맞게 업데이트된 상태입니다.
+
+커밋할 변경 사항:
+  (use "git restore --staged <file>..." to unstage)
+	수정함:        .DS_Store
+	새 파일:       Computer-data-Structure
+
+커밋하도록 정하지 않은 변경 사항:
+  (무엇을 커밋할지 바꾸려면 "git add <파일>..."을 사용하십시오)
+  (use "git restore <file>..." to discard changes in working directory)
+  (하위 모듈의 추적되지 않는 파일이나 수정된 내용을 커밋하거나 버리십시오)
+	수정함:        Computer-data-Structure (수정한 내용)
+
