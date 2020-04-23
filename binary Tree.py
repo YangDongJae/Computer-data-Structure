@@ -44,11 +44,18 @@ class Binary_tree:
             self.pre_order(node.get_left_child())
             self.pre_order(node.get_right_child())
     
-    def in_order(self, node):
-        if node != None:
-            self.pre_order(node.get_left_child())
+#    def in_order(self, node):
+#        if node != None:
+#            self.pre_order(node.get_left_child())
+#            print(node.get_data(), end = " ")
+#            self.pre_order(node.get_right_child())
+
+    def in_order(self,node):
+        if node.get_left_child() != None:
+            self.in_order(node.get_left_child())
             print(node.get_data(), end = " ")
-            self.pre_order(node.get_right_child())
+            self.in_order(node.get_right_child())
+            
             
             
             
