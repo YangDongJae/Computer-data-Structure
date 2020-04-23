@@ -23,10 +23,10 @@ class Node:
         return self.data
     
     def set_left_child(self, left_child):
-        self.set_left_child = left_child
+        self.left_child = left_child
         
     def set_right_child(self, right_child):
-        self.set_right_child = right_child
+        self.right_child = right_child
         
 class Binary_tree:
     def __init__ (self):
@@ -39,10 +39,20 @@ class Binary_tree:
         self.root = root
         
     def pre_order(self, node):
-        if node != None:
+        if node is not None:
             print(node.get_data(), end = " ")
             self.pre_order(node.get_left_child())
             self.pre_order(node.get_right_child())
+    
+    def in_order(self, node):
+        if node != None:
+            self.pre_order(node.get_left_child())
+            print(node.get_data(), end = " ")
+            self.pre_order(node.get_right_child())
+            
+            
+            
+            
             
             
 b_tree = Binary_tree()
@@ -70,4 +80,5 @@ node_d.set_right_child(node_g)
 
 node_e.set_left_child(node_h)
 
-b_tree.pre_order(b_tree.get_root())
+#b_tree.pre_order(b_tree.get_root())
+b_tree.in_order(b_tree.get_root())
