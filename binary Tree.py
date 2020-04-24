@@ -39,20 +39,28 @@ class Binary_tree:
         self.root = root
         
     def pre_order(self, node):
-        if node is not None:
+        if node != None:
             print(node.get_data(), end = " ")
             self.pre_order(node.get_left_child())
             self.pre_order(node.get_right_child())
     
     def in_order(self, node):
-        if node.get_left_child() != None:
+        if node != None:
             self.in_order(node.get_left_child())
-        print(node.get_data(), end = ", ")
-        if node.get_right_child() != None:
+            print(node.get_data(), end = " ")            
             self.in_order(node.get_right_child())
-        print(node.get_data(), end = " ")
+            
+    def post_order(self, node):
+        if node != None:
+            self.post_order(node.get_left_child())
+            self.post_order(node.get_right_child())
+            print(node.get_data(),  end = " ")
+            
+
+            
 
 
+            
             
             
             
@@ -85,5 +93,8 @@ node_d.set_right_child(node_g)
 
 node_e.set_left_child(node_h)
 
-#b_tree.pre_order(b_tree.get_root())
+b_tree.pre_order(b_tree.get_root())
+print(" ")
 b_tree.in_order(b_tree.get_root())
+print(" ")
+b_tree.post_order(b_tree.get_root())
