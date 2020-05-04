@@ -11,24 +11,16 @@ class Node:
   
   def __init__(self, data):
     self.data = data
-    self.left = None
-    self.right = None
+    self.children = [ ]
     
   def get_data(self):
     return self.data
   
-  def set_left(self,left):
-    self.left = left
-      
-  def set_right(self,right):
-    self.right = right
-      
+  def add_child(self, child):
+    self.children.append(child)
     
-  def get_left(self):
-    return self.left
-      
-  def get_right(self):
-    return self.right
+  def get_children(self):
+    return self.children
       
 class Tree:
   
@@ -52,8 +44,10 @@ class Tree:
       msg += node.get_data()
       print(msg)
       
-      self.print_node(node.get_left(), depth + 1)
-      self.print_node(node.get_right(), depth )
+      children = node.get_children()
+      for child in children:
+        self.print_node(child, depth+1)
+      
     
 tree = Tree()
 
@@ -76,31 +70,28 @@ node_p = Node("P")
 
 tree.set_root(node_a)
 
-node_a.set_left(node_b)
+node_a.add_child(node_b)
+node_a.add_child(node_c)
+node_a.add_child(node_d)
 
-node_b.set_left(node_e)
-node_b.set_right(node_c)
+node_b.add_child(node_e)
+node_b.add_child(node_f)
+node_b.add_child(node_g)
 
-node_c.set_left(node_h)
-node_c.set_right(node_d)
+node_c.add_child(node_h)
+node_c.add_child(node_i)
 
-node_d.set_left(node_j)
+node_d.add_child(node_j)
 
-node_e.set_left(node_k)
-node_e.set_right(node_f)
+node_e.add_child(node_k)
+node_e.add_child(node_l)
 
-node_f.set_right(node_g)
+node_g.add_child(node_m)
 
-node_g.set_left(node_m)
+node_h.add_child(node_n)
 
-node_h.set_left(node_n)
-node_h.set_right(node_i)
-
-node_j.set_left(node_o)
-
-node_k.set_right(node_l)
-
-node_o.set_right(node_p)
+node_j.add_child(node_o)
+node_j.add_child(node_p)
 
 
 tree.print_tree()
