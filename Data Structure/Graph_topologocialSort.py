@@ -23,6 +23,7 @@ class Node:
 class Graph:
   def __init__(self):
     self.nodes = []
+    self.stack = []
     
   def add_node(self, node):
     self.nodes.append(node)
@@ -32,33 +33,35 @@ class Graph:
       for node in self.nodes:
         node.set_visited(False)
         # reset 'visited' attribute 
-    Graph.topological_sort(self,node_A)
-    
+
+    for i in range (len(self.nodes)):
+      if self.nodes[i].get_visited() == False:
+        self.topological_sort(self.nodes[i])
+
+    for i in range (len(self.stack)):
+      print(self.stack.pop().get_data())
 
   def topological_sort(self, point_node):
-    stack = []
+    stack = self.stack
     neighbor_list = point_node.get_neighbors()
-
-    if len(neighbor_list) > 0:
-      for i in range (len(neighbor_list)):
-        point_node.set_visited(True)
-        self.topological_sort(neighbor_list[i])
+    
+    if point_node.get_visited() == False:
+      if len(neighbor_list) > 0:
+        for i in range (len(neighbor_list)):
+          point_node.set_visited(True)
+          self.topological_sort(neighbor_list[i])
         stack.append(point_node)
-        
-        # if point_node.get_visited == True:
-        #   for i in range (len(self.nodes)):
-        #     if self.nodes[i].get_data == False:
-        #       point_node = self.nodes[i]
-        #       self.topological_sort(point_node)
+          
+          # if point_node.get_visited == True:
+          #   for i in range (len(self.nodes)):
+          #     if self.nodes[i].get_data == False:
+          #       point_node = self.nodes[i]
+          #       self.topological_sort(point_node)
 
-    else:
-      point_node.set_visited(True)
-      stack.append(point_node)
+      else:
+        point_node.set_visited(True)
+        stack.append(point_node)
 
-    for i in range(len(stack)):
-      stack_node = stack[i]
-      print(stack_node.get_data())
-      
 
 
 
