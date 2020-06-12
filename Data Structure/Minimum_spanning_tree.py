@@ -45,16 +45,13 @@ class Weight_Graph:
 
 
   def prim_algorithm(self,start_node):
-    compare = {}
+    weight = 
     neighbors_list = start_node.get_neighbors()
-
-    for i in range (len(neighbors_list)):
-      compare[neighbors_list[i].get_data()] = start_node.get_weight(neighbors_list[i].get_data())
-    return compare
-      
     
-    # for i in range (len(neighbors_list)):
-    #   start_node.get_weight()
+    for i in range (len(neighbors_list)):
+      self.weight = start_node.get_weight(neighbors_list[i].get_data())
+      if i == 1 and self.weight
+
 
     
 
