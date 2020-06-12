@@ -2,7 +2,8 @@ class Node:
   def __init__(self,data):
     self.data = data
     self.neighbors = []
-    self.weight = {}
+    self.weight = []
+    self.visited = None
 
   def add_neighbor(self, neighbor):
     self.neighbors.append(neighbor)
@@ -20,17 +21,40 @@ class Node:
     return self.visited
 
   def set_weight(self,weight,node_x , node_y):
-    self.weight = {node_x.get_data() : [node_y.get_data() , weight]}
+    self.weight.append([node_x.get_data() , node_y.get_data() , weight])
 
-  def get_weight(self):
-    return self.weight
-    
+  def get_weight(self, node):
+    for i in range (len(self.weight)):
+      weight = self.weight[i]
+      for __ in range (len(weight)):
+        if weight[1] == str(node):
+          return self.weight[i][2]
+
+
 class Weight_Graph:
   def __init__(self):
     self.nodes = []
 
   def add_node(self, node):
     self.nodes.append(node)
+
+  def reset_visit(self):
+    if len(self.nodes) > 0:
+      for i in range (len(self.nodes)):
+        self.nodes[i].set_visited = False
+
+
+
+  def prim_algorithm(self,start_node):
+    queue = []
+    neighbors_list = start_node.get_neighbors()
+
+    for i in range (len(neighbors_list)):
+      start_node.get_weight()
+
+    
+
+
 
   
 graph = Weight_Graph()
@@ -119,5 +143,4 @@ node_I.set_weight(7,node_I,node_H)
 node_I.add_neighbor(node_G)
 node_I.set_weight(6,node_I,node_G)
 
-
-
+print(node_A.get_weight(node_B.get_data()))
