@@ -30,7 +30,6 @@ class Node:
         if weight[1] == str(node):
           return self.weight[i][2]
 
-
 class Weight_Graph:
   def __init__(self):
     self.nodes = []
@@ -46,11 +45,16 @@ class Weight_Graph:
 
 
   def prim_algorithm(self,start_node):
-    queue = []
+    compare = {}
     neighbors_list = start_node.get_neighbors()
 
     for i in range (len(neighbors_list)):
-      start_node.get_weight()
+      compare[neighbors_list[i].get_data()] = start_node.get_weight(neighbors_list[i].get_data())
+    return compare
+      
+    
+    # for i in range (len(neighbors_list)):
+    #   start_node.get_weight()
 
     
 
@@ -143,4 +147,4 @@ node_I.set_weight(7,node_I,node_H)
 node_I.add_neighbor(node_G)
 node_I.set_weight(6,node_I,node_G)
 
-print(node_A.get_weight(node_B.get_data()))
+print(graph.prim_algorithm(node_A))
