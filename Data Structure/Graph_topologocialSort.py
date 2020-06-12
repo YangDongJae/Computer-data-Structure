@@ -52,11 +52,6 @@ class Graph:
           self.topological_sort(neighbor_list[i])
         stack.append(point_node)
           
-          # if point_node.get_visited == True:
-          #   for i in range (len(self.nodes)):
-          #     if self.nodes[i].get_data == False:
-          #       point_node = self.nodes[i]
-          #       self.topological_sort(point_node)
 
       else:
         point_node.set_visited(True)
