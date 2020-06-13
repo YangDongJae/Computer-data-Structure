@@ -22,13 +22,39 @@ class Node:
 
   def set_weight(self,weight,node_x , node_y):
     self.weight.append([node_x.get_data() , node_y.get_data() , weight])
-
+      
   def get_weight(self, node):
     for i in range (len(self.weight)):
       weight = self.weight[i]
       for __ in range (len(weight)):
         if weight[1] == str(node):
           return self.weight[i][2]
+
+  def get_all_weight(self):
+    neighbors = self.get_neighbors()
+    info_node = []
+    for i in range(len(neighbors)):
+      info_node.append([neighbors[i].get_data(), self.get_weight(neighbors[i].get_data())])
+    return info_node             
+
+  def compare_weight(self,point_node):
+  #return small weight
+    weight_list = []
+    graph.reset_visit()
+    for node in graph.nodes:
+      if point_node == node :
+        neighbors = node.get_neighbors()
+        for neighbor in neighbors:
+          weight = neighbor.get_data() , point_node.get_weight(neighbor.get_data())
+          weight_list.append(weight)
+        weight_list.sort()
+        return(weight_list[0])
+
+
+  def reset_weigth(self,node):
+    #Initialize onother node  except small wegith node
+    neighbors = node.get_neighbors()
+
 
 class Weight_Graph:
   def __init__(self):
@@ -44,13 +70,14 @@ class Weight_Graph:
 
 
 
-  def prim_algorithm(self,start_node):
-    self.reset_visit()
-    for node in self.nodes:
-      if start_node == node :
-        neighbors = node.get_neighbors()
-        for neighbor in neighbors:
-          print(start_node.get_weight(neighbor))
+
+
+
+
+  def reset_weight(self,node):
+    neighbors = node.get_neighbors()
+
+
 
 
 
@@ -145,5 +172,4 @@ node_I.set_weight(7,node_I,node_H)
 node_I.add_neighbor(node_G)
 node_I.set_weight(6,node_I,node_G)
 
-print(graph.prim_algorithm(node_A))
-print(node_A.get_weight(node_B))
+print(node_A.get_all_weight())
