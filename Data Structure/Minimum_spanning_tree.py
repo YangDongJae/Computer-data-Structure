@@ -51,31 +51,30 @@ class Node:
         return(weight_list[0])
 
 
-  def reset_weigth(self,node):
-    #Initialize onother node  except small wegith node
-    neighbors = node.get_neighbors()
+  #def reset_weigth(self):
+
+
+      
 
 
 class Weight_Graph:
   def __init__(self):
     self.nodes = []
+    self.weights = []
 
   def add_node(self, node):
     self.nodes.append(node)
+
+  def set_weights(self):
+    for node in self.nodes:
+      self.weights.append({node.get_data(): node.get_all_weight()})
+    return self.weights
 
   def reset_visit(self):
     if len(self.nodes) > 0:
       for i in range (len(self.nodes)):
         self.nodes[i].set_visited = False
 
-
-
-
-
-
-
-  def reset_weight(self,node):
-    neighbors = node.get_neighbors()
 
 
 
@@ -172,4 +171,4 @@ node_I.set_weight(7,node_I,node_H)
 node_I.add_neighbor(node_G)
 node_I.set_weight(6,node_I,node_G)
 
-print(node_A.get_all_weight())
+print(graph.set_weights())
