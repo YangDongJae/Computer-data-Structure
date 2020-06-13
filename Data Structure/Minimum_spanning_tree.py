@@ -75,14 +75,14 @@ class Weight_Graph:
   def compare_weight(self,target_node):
     #return small weight
     weight_list = []
-    for node in graph.nodes:
+    for node in self.nodes:
       if target_node == node :
         neighbors = node.get_neighbors()
         for neighbor in neighbors:
           weight = neighbor.get_data() , target_node.get_weight(neighbor.get_data())
           weight_list.append(weight)
-        weight_list.sort()
-        return(weight_list[0])    
+        return weight_list
+        # we have to make new logic for compare
 
 
 
