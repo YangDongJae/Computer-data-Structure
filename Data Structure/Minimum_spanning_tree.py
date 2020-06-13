@@ -51,7 +51,7 @@ class Node:
         return(weight_list[0])
 
 
-  #def reset_weigth(self):
+  
 
 
       
@@ -74,6 +74,8 @@ class Weight_Graph:
     if len(self.nodes) > 0:
       for i in range (len(self.nodes)):
         self.nodes[i].set_visited = False
+
+
 
 
 
