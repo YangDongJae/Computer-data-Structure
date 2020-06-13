@@ -24,6 +24,7 @@ class Node:
     self.weight.append([node_x.get_data() , node_y.get_data() , weight])
       
   def get_weight(self, node):
+    #return weigth 
     for i in range (len(self.weight)):
       weight = self.weight[i]
       for __ in range (len(weight)):
@@ -31,24 +32,14 @@ class Node:
           return self.weight[i][2]
 
   def get_all_weight(self):
+    #return al weigths
     neighbors = self.get_neighbors()
     info_node = []
     for i in range(len(neighbors)):
       info_node.append([neighbors[i].get_data(), self.get_weight(neighbors[i].get_data())])
     return info_node             
 
-  def compare_weight(self,point_node):
-  #return small weight
-    weight_list = []
-    graph.reset_visit()
-    for node in graph.nodes:
-      if point_node == node :
-        neighbors = node.get_neighbors()
-        for neighbor in neighbors:
-          weight = neighbor.get_data() , point_node.get_weight(neighbor.get_data())
-          weight_list.append(weight)
-        weight_list.sort()
-        return(weight_list[0])
+
 
 
   
@@ -74,6 +65,24 @@ class Weight_Graph:
     if len(self.nodes) > 0:
       for i in range (len(self.nodes)):
         self.nodes[i].set_visited = False
+
+  # def reset_weigths(self,start_node):
+  #   result = []
+  #   neighbors = start_node.get_neighbors()
+  #   for i in range(len(neighbors)):
+  #     start_node.compare_node(neighbors[i])
+    
+  def compare_weight(self,target_node):
+    #return small weight
+    weight_list = []
+    for node in graph.nodes:
+      if target_node == node :
+        neighbors = node.get_neighbors()
+        for neighbor in neighbors:
+          weight = neighbor.get_data() , target_node.get_weight(neighbor.get_data())
+          weight_list.append(weight)
+        weight_list.sort()
+        return(weight_list[0])    
 
 
 
@@ -173,4 +182,4 @@ node_I.set_weight(7,node_I,node_H)
 node_I.add_neighbor(node_G)
 node_I.set_weight(6,node_I,node_G)
 
-print(graph.set_weights())
+print(graph.compare_weight(node_C))
