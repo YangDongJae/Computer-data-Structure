@@ -73,19 +73,13 @@ class Weight_Graph:
   #     start_node.compare_node(neighbors[i])
     
   def compare_weight(self,target_node):
-    #return small weight
-    weight_list = []
-    for node in self.nodes:
-      if target_node == node :
-        neighbors = node.get_neighbors()
-        for neighbor in neighbors:
-          weight = neighbor.get_data() , target_node.get_weight(neighbor.get_data())
-          weight_list.append(weight)
-        return weight_list
-        # we have to make new logic for compare
-
-
-
+    neighbors_weight = target_node.get_all_weight()
+    while len(neighbors_weight) != 1:
+      if neighbors_weight[0][1] > neighbors_weight[1][1]:
+        neighbors_weight.remove(neighbors_weight[0])
+      else:
+          neighbors_weight.remove(neighbors_weight[1])
+    return neighbors_weight
 
 
 
@@ -182,4 +176,4 @@ node_I.set_weight(7,node_I,node_H)
 node_I.add_neighbor(node_G)
 node_I.set_weight(6,node_I,node_G)
 
-print(graph.compare_weight(node_C))
+print(graph.compare_weight(node_A))
