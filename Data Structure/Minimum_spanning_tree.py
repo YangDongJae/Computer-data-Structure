@@ -4,15 +4,23 @@ class Node:
     self.neighbors = []
     self.weight = []
     self.visited = None
+    self.prev = None
+    self.next = None
+
+  def get_data(self):
+    return self.data
+
+  def get_next(self):
+      return self.next
+  
+  def set_next(self,next):
+      self.next = next      
 
   def add_neighbor(self, neighbor):
     self.neighbors.append(neighbor)
 
   def set_visited(self, visited):
     self.visited = visited
-
-  def get_data(self):
-    return self.data
 
   def get_neighbors(self):
     return self.neighbors
@@ -51,21 +59,6 @@ class Node:
       neighbors_visited.append([neighbor.get_data(),neighbor.get_all_visited()])
     return neighbors_visited
 
-
-
-      
-    
-
-
-
-
-
-  
-
-
-      
-
-
 class Weight_Graph:
   def __init__(self):
     self.nodes = []
@@ -97,8 +90,78 @@ class Weight_Graph:
           neighbors_weight.remove(neighbors_weight[1])
     return neighbors_weight
 
+  def check_cycle(self,node):
+    #if neighbors have True Visited(Cycle), return False
+    handler = node.get_neighbors_visited()
+    for i in range (len(handler) - 1):
+      if  True in handler[i][1]:
+        return False
+
+  def prim(self,start_node):
+    print(self.compare_weight(start_node))
 
 
+class singly_linked_list:
+  
+  def __init__(self):
+    self.header = None
+    self.tail = None
+    self.size = 0
+  def append(self,data):
+    self.size += 1
+    new_node = Node(data)
+    if self.header == None:
+        self.header = new_node
+    else:
+        self.tail.set_next(new_node)
+    self.tail = new_node
+  
+  def print_list(self):
+    node = self.header
+    while node != None:
+        print(node.get_data())
+        node = node.get_next()
+    
+  def get_at(self,index):
+    if self.size <= index :
+        return None
+    else:
+        header = self.header            
+        for i in range(0,index):
+            header = header.get_next()
+        return header
+      
+  def search(self,data):
+    node = self.header
+    for i in range(self.size):
+        if node.get_data() == data:
+            return node
+        node = self.header.get_next()
+    return node
+  
+  def delete_at(self,index):
+    prev = self.header
+    next_data = None
+    node = self.header
+    if index + 1 > self.size:
+        print("index error")
+    elif index == 0:
+        self.header = node.get_next()
+        self.size -= 1
+    else:
+        for i in range (index - 1):
+            node = node.get_next()
+            prev = node
+        node = self.header
+        for i in range (index + 1):
+            node = node.get_next()
+            next_data = node
+        prev.set_next(next_data)
+        
+        node = self.header
+        while node.get_next() != None:
+            node = self.header.get_next()
+        self.tail = node
 
 
 
@@ -109,6 +172,7 @@ class Weight_Graph:
 
   
 graph = Weight_Graph()
+minimum_list = singly_linked_list()
 
 
 node_A = Node('A')
@@ -194,7 +258,12 @@ node_I.set_weight(7,node_I,node_H)
 node_I.add_neighbor(node_G)
 node_I.set_weight(6,node_I,node_G)
 
+
 graph.reset_visit()
+graph.prim(node_A)
+
 print(node_A.get_neighbors_visited())
 node_B.set_visited(True)
 print(node_A.get_neighbors_visited())
+
+print( graph.check_cycle(node_A) )
