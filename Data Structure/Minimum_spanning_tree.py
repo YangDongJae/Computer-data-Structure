@@ -28,6 +28,7 @@ class Node:
   def get_visited(self):
     return self.visited
 
+
   def set_weight(self,weight,node_x , node_y):
     self.weight.append([node_x.get_data() , node_y.get_data() , weight])
       
@@ -64,6 +65,12 @@ class Weight_Graph:
     self.nodes = []
     self.weights = []
 
+  def get_object_reference(self,target):
+    for i in range (len(self.nodes)):
+      if target == self.nodes[i].get_data():
+       result = self.nodes[i]
+    return result    
+
   def add_node(self, node):
     self.nodes.append(node)
 
@@ -93,12 +100,27 @@ class Weight_Graph:
   def check_cycle(self,node):
     #if neighbors have True Visited(Cycle), return False
     handler = node.get_neighbors_visited()
-    for i in range (len(handler) - 1):
+    for i in range (len(handler)):
       if  True in handler[i][1]:
         return False
 
   def prim(self,start_node):
-    print(self.compare_weight(start_node))
+    graph.reset_visit()
+
+    sll = singly_linked_list()
+    sll.append(start_node.get_data())
+
+    minimum_weight_node = self.compare_weight(start_node)
+    neigbors = start_node.get_neighbors()
+    node_B.set_visited(True)
+
+    if graph.check_cycle(start_node) != False:
+      sll.append(minimum_weight_node[0][0])
+      sll.print_list()
+
+    #else:
+
+      
 
 
 class singly_linked_list:
@@ -259,11 +281,4 @@ node_I.add_neighbor(node_G)
 node_I.set_weight(6,node_I,node_G)
 
 
-graph.reset_visit()
 graph.prim(node_A)
-
-print(node_A.get_neighbors_visited())
-node_B.set_visited(True)
-print(node_A.get_neighbors_visited())
-
-print( graph.check_cycle(node_A) )
