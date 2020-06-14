@@ -10,18 +10,12 @@ class Node:
   def get_data(self):
     return self.data
 
-  def set_prev(self,prev):
-    self.prev = prev
-      
-  def set_next(self, nextData):
-    self.next = nextData
-  
-  def get_prev(self):
-    return self.prev
-  
   def get_next(self):
-    return self.next
-        
+      return self.next
+  
+  def set_next(self,next):
+      self.next = next      
+
   def add_neighbor(self, neighbor):
     self.neighbors.append(neighbor)
 
@@ -51,7 +45,7 @@ class Node:
     neighbors = self.get_neighbors()
     info_node = []
     for i in range(len(neighbors)):
-      info_node.append([[neighbors[i]], [self.get_weight(neighbors[i])]])
+      info_node.append([neighbors[i].get_data(), self.get_weight(neighbors[i].get_data())])
     return info_node          
 
   def get_all_visited(self):
@@ -65,67 +59,6 @@ class Node:
     for neighbor in self.neighbors:
       neighbors_visited.append([neighbor.get_data(),neighbor.get_all_visited()])
     return neighbors_visited
-
-class Doubly_linked_list:
-    def __init__(self):
-        self.header = None
-        self.tail = None
-        self.size = 0
-        
-    def print_list(self):
-        header = self.header
-        print(">>>Current List")
-        while header != None:
-            print(header.get_data())
-            header = header.get_next()
-        print(">>>>>>>>>>>>>>>>")
-        
-    def append(self,data):
-        new_node = Node(data)
-        header = self.header
-        self.size += 1
-        if self.header == None:
-            self.header = new_node
-        else:
-            self.tail.set_next(new_node)
-            new_node.set_prev(self.tail)
-        self.tail = new_node
-         
-    def get_at(self,index):
-        header = self.header
-        for i in range (index):
-            header = header.get_next()
-        return header.get_next()
-    
-    def search(self,data):
-        node = self.header
-        for i in range(self.size):
-            if node.get_data() == data:
-                return node
-            node = self.header.get_next()
-        return node
-    
-    def get_near_by(self,data,scope):
-        list = [] 
-        header= self.header
-        prev = None
-        nextData = None
-        while header.get_data() != data:
-            header = header.get_next()
-            if header.get_data() == data:
-                prev = header.get_prev()
-                nextData = header.get_next()
-                for i in range (scope):
-                    if prev == None:
-                        break
-                    list.append(prev.get_data())
-                    prev = prev.get_prev()
-                for i in range(scope):
-                    if nextData == None:
-                        break
-                    list.append(nextData.get_data())
-                    nextData = nextData.get_next()
-        return list
 
 class Weight_Graph:
   def __init__(self):
@@ -158,7 +91,7 @@ class Weight_Graph:
     #return small weigth in neigbors node weights
     neighbors_weight = target_node.get_all_weight()
     while len(neighbors_weight) != 1:
-      if neighbors_weight[0][1].get_data() > neighbors_weight[1][1].get_data():
+      if neighbors_weight[0][1] > neighbors_weight[1][1]:
         neighbors_weight.remove(neighbors_weight[0])
       else:
           neighbors_weight.remove(neighbors_weight[1])
@@ -174,26 +107,83 @@ class Weight_Graph:
   def prim(self,start_node):
     graph.reset_visit()
 
-    dll = Doubly_linked_list()
-    dll.append(start_node.get_data())
+    sll = singly_linked_list()
+    sll.append(start_node.get_data())
+
     minimum_weight_node = self.compare_weight(start_node)
     neigbors = start_node.get_neighbors()
-    ##
-    print(minimum_weight_node[0][0])
-    print(neigbors)
-    print(id(minimum_weight_node[0][0]))
-    ##
     node_B.set_visited(True)
 
-    if graph.check_cycle(start_node) != False: 
-      dll.append(minimum_weight_node[0][0])
+    if graph.check_cycle(start_node) != False:
+      sll.append(minimum_weight_node[0][0])
+      sll.print_list()
+
+    #else:
+
       
+
+
+class singly_linked_list:
+  
+  def __init__(self):
+    self.header = None
+    self.tail = None
+    self.size = 0
+  def append(self,data):
+    self.size += 1
+    new_node = Node(data)
+    if self.header == None:
+        self.header = new_node
     else:
-      neigbors.remove(id(minimum_weight_node[0][0]))
-
-    dll.print_list()
-
-
+        self.tail.set_next(new_node)
+    self.tail = new_node
+  
+  def print_list(self):
+    node = self.header
+    while node != None:
+        print(node.get_data())
+        node = node.get_next()
+    
+  def get_at(self,index):
+    if self.size <= index :
+        return None
+    else:
+        header = self.header            
+        for i in range(0,index):
+            header = header.get_next()
+        return header
+      
+  def search(self,data):
+    node = self.header
+    for i in range(self.size):
+        if node.get_data() == data:
+            return node
+        node = self.header.get_next()
+    return node
+  
+  def delete_at(self,index):
+    prev = self.header
+    next_data = None
+    node = self.header
+    if index + 1 > self.size:
+        print("index error")
+    elif index == 0:
+        self.header = node.get_next()
+        self.size -= 1
+    else:
+        for i in range (index - 1):
+            node = node.get_next()
+            prev = node
+        node = self.header
+        for i in range (index + 1):
+            node = node.get_next()
+            next_data = node
+        prev.set_next(next_data)
+        
+        node = self.header
+        while node.get_next() != None:
+            node = self.header.get_next()
+        self.tail = node
 
 
 
@@ -204,6 +194,7 @@ class Weight_Graph:
 
   
 graph = Weight_Graph()
+minimum_list = singly_linked_list()
 
 
 node_A = Node('A')
