@@ -60,6 +60,9 @@ class Node:
       neighbors_visited.append([neighbor.get_data(),neighbor.get_all_visited()])
     return neighbors_visited
 
+  def set_neighbors(self,neigbors):
+    self.neighbors = neigbors
+
 class Weight_Graph:
   def __init__(self):
     self.nodes = []
@@ -91,34 +94,56 @@ class Weight_Graph:
     #return small weigth in neigbors node weights
     neighbors_weight = target_node.get_all_weight()
     while len(neighbors_weight) != 1:
-      if neighbors_weight[0][1] > neighbors_weight[1][1]:
-        neighbors_weight.remove(neighbors_weight[0])
+      if len(neighbors_weight) == 1:
+        return neighbors_weight
       else:
-          neighbors_weight.remove(neighbors_weight[1])
-    return neighbors_weight
+        if neighbors_weight[0][1] > neighbors_weight[1][1]:
+          neighbors_weight.remove(neighbors_weight[0])
+        else:
+            neighbors_weight.remove(neighbors_weight[1])
+      return neighbors_weight
 
   def check_cycle(self,node):
     #if neighbors have True Visited(Cycle), return False
     handler = node.get_neighbors_visited()
-    for i in range (len(handler)):
+    for i in range (len(handler) - 1):
       if  True in handler[i][1]:
         return False
 
   def prim(self,start_node):
-    graph.reset_visit()
+    self.reset_visit()
 
     sll = singly_linked_list()
     sll.append(start_node.get_data())
 
     minimum_weight_node = self.compare_weight(start_node)
-    neigbors = start_node.get_neighbors()
-    node_B.set_visited(True)
+    neighbors = start_node.get_neighbors()
+    node_C.set_visited(True)
+    check_cycle = self.check_cycle(start_node)
 
-    if graph.check_cycle(start_node) != False:
+    if check_cycle == False:
+      for i in range (len(neighbors) > 1):
+        neighbors.remove(self.get_object_reference(minimum_weight_node[0][0]))
+        start_node.set_neighbors(neighbors)
+        self.prim(start_node)
+        
+        
+
+      if len(neigbors) == 1:
+        minimum_weight_node = neigbors[0]
+        sll.append(minimum_weight_node.get_data())
+        sll.print_list()      
+
+    elif start_node.get_visited() == True: 
+      return None
+
+    else:
       sll.append(minimum_weight_node[0][0])
       sll.print_list()
 
-    #else:
+
+        
+    
 
       
 
@@ -280,5 +305,4 @@ node_I.set_weight(7,node_I,node_H)
 node_I.add_neighbor(node_G)
 node_I.set_weight(6,node_I,node_G)
 
-
-graph.prim(node_A)
+graph.prim(node_D)
