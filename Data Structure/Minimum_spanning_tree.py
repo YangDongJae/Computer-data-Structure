@@ -44,6 +44,15 @@ class Node:
     for i in range (len(self.neighbors)):
       neighbors_visited.append(self.neighbors[i].get_visited())
     return neighbors_visited
+
+  def get_neighbors_visited(self):
+    neighbors_visited = []
+    for neighbor in self.neighbors:
+      neighbors_visited.append([neighbor.get_data(),neighbor.get_all_visited()])
+    return neighbors_visited
+
+
+
       
     
 
@@ -185,3 +194,7 @@ node_I.set_weight(7,node_I,node_H)
 node_I.add_neighbor(node_G)
 node_I.set_weight(6,node_I,node_G)
 
+graph.reset_visit()
+print(node_A.get_neighbors_visited())
+node_B.set_visited(True)
+print(node_A.get_neighbors_visited())
