@@ -93,15 +93,18 @@ class Weight_Graph:
   def compare_weight(self,target_node):
     #return small weigth in neigbors node weights
     neighbors_weight = target_node.get_all_weight()
-    while len(neighbors_weight) != 1:
-      if len(neighbors_weight) == 1:
-        return neighbors_weight
-      else:
-        if neighbors_weight[0][1] > neighbors_weight[1][1]:
-          neighbors_weight.remove(neighbors_weight[0])
+    if len(neighbors_weight) != 1:
+      while len(neighbors_weight) == 1:
+        if len(neighbors_weight) == 1:
+          return neighbors_weight
         else:
-            neighbors_weight.remove(neighbors_weight[1])
-      return neighbors_weight
+          if neighbors_weight[0][1] > neighbors_weight[1][1]:
+            neighbors_weight.remove(neighbors_weight[0])
+          else:
+              neighbors_weight.remove(neighbors_weight[1])
+        return neighbors_weight
+
+#!!! have to trouble shooting for use compare weigth node B#
 
   def check_cycle(self,node):
     #if neighbors have True Visited(Cycle), return False
@@ -113,7 +116,7 @@ class Weight_Graph:
   def prim(self,start_node):
     self.reset_visit()
     sll = singly_linked_list()
-    sll.append(start_node)
+    sll.append(start_node.get_data())
     node_neighbors = start_node.get_neighbors()
 
     if self.check_cycle(start_node) == False:
@@ -121,7 +124,7 @@ class Weight_Graph:
       self.prim(start_node)
 
     else:
-      sll.append(self.get_object_reference(self.compare_weight(start_node)[0][0]))
+      sll.append(self.get_object_reference(self.compare_weight(start_node)[0][0]).get_data())
       return sll.print_list()
 
       
@@ -291,4 +294,7 @@ node_I.set_weight(7,node_I,node_H)
 node_I.add_neighbor(node_G)
 node_I.set_weight(6,node_I,node_G)
 
-graph.prim(node_A)
+graph.prim(node_B)
+graph.reset_visit()
+print(graph.check_cycle(node_B))
+print(graph.compare_weight(node_C))
