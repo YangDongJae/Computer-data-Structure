@@ -112,34 +112,20 @@ class Weight_Graph:
 
   def prim(self,start_node):
     self.reset_visit()
-
     sll = singly_linked_list()
-    sll.append(start_node.get_data())
+    sll.append(start_node)
+    node_neighbors = start_node.get_neighbors()
 
-    minimum_weight_node = self.compare_weight(start_node)
-    neighbors = start_node.get_neighbors()
-    node_C.set_visited(True)
-    check_cycle = self.check_cycle(start_node)
-
-    if check_cycle == False:
-      for i in range (len(neighbors) > 1):
-        neighbors.remove(self.get_object_reference(minimum_weight_node[0][0]))
-        start_node.set_neighbors(neighbors)
-        self.prim(start_node)
-        
-        
-
-      if len(neigbors) == 1:
-        minimum_weight_node = neigbors[0]
-        sll.append(minimum_weight_node.get_data())
-        sll.print_list()      
-
-    elif start_node.get_visited() == True: 
-      return None
+    if self.check_cycle(start_node) == False:
+      start_node.set_neighbors(self.get_object_reference(node_neighbors.remove(start_node.compare_weight())))
+      self.prim(start_node)
 
     else:
-      sll.append(minimum_weight_node[0][0])
-      sll.print_list()
+      sll.append(self.get_object_reference(self.compare_weight(start_node)[0][0]))
+      return sll.print_list()
+
+      
+
 
 
         
@@ -305,4 +291,4 @@ node_I.set_weight(7,node_I,node_H)
 node_I.add_neighbor(node_G)
 node_I.set_weight(6,node_I,node_G)
 
-graph.prim(node_D)
+graph.prim(node_A)
