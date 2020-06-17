@@ -51,7 +51,36 @@ class Graph:
     self.matrix = matrix
 
   def execute_prim(self):
-    #how can i build it?
+    node = self.nodes[0]
+    self.prim(node)
+    node.set_key(0 ,None)
+
+    self.print_result()
+
+  def prim(self,node):
+    if node.get_is_done() == False:
+      node.set_is_done()
+      target_matrix = self.matrix[self.get_target_matrix(node)]
+      neighbor = node.get_neighbors()
+      neighbor_location = []
+
+      for i in neighbor:
+        neighbor_location.append(self.get_target_matrix(i))
+
+      for i in range(len(neighbor)):
+        if not neighbor[i].get_is_done():
+          if neighbor[i].set_key(target_matrix[neighbor_location[i]], node):
+            neighbor[i].set_key(target_matrix[neighbor_location[i]], node)
+      
+      for j in neighbor:
+        for i in self.nodes:
+          if i.get_key() > j.get_key():
+            self.prim(j)
+      
+  def get_target_matrix(self, node):
+    for i in range (len(self.nodes)):
+      if node == self.nodes[i]:
+        return i
 
   def print_result(self):
     for node in self.nodes:
