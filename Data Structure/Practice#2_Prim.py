@@ -51,14 +51,7 @@ class Graph:
     self.matrix = matrix
 
   def execute_prim(self):
-      #구현
-    compare_zone=[]
-
-    for i in range (len(nodes)):
-      if self.matrix[i][0] > 0:
-        compare_zone.append(matrix[i][0])
-      print(compare_zone)
-    self.print_result()
+    #how can i build it?
 
   def print_result(self):
     for node in self.nodes:
