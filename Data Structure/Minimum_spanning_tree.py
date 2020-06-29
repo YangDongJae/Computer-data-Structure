@@ -198,6 +198,7 @@ class singly_linked_list:
         while node.get_next() != None:
             node = self.header.get_next()
         self.tail = node
+        
 
 
 
