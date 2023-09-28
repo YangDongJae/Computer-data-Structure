@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<section name="Workbench">
-	<section name="org.python.pydev.core.preferences.CheckDefaultPreferencesDialog">
-		<item key="width" value="480"/>
-		<item key="height" value="385"/>
-		<item key="x" value="314"/>
-		<item key="y" value="208"/>
-	</section>
-</section>
